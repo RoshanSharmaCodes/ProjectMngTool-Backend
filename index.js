@@ -7,8 +7,8 @@ const app = express()
 const port = 5000
 
 app.use(cors())
-App.use(express.urlencoded({ extended: true }))
-App.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 
 app.get("/", (req, res) => {
   res.send({ message: "Your Server is Up and Running..." }).statusCode(200)
