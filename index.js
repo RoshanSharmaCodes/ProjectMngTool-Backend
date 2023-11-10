@@ -6,7 +6,12 @@ const pdfTemplate = require("./Pages/Report")
 const app = express()
 const port = 5000
 
-app.use(cors())
+const corsOptions = {
+    origin: 'http://localhost:3000', // Replace with the actual origin of your React app
+    optionsSuccessStatus: 200, // Some legacy browsers choke on 204
+};
+
+app.use(cors(corsOptions))
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 
