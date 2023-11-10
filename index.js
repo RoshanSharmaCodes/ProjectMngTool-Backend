@@ -6,33 +6,34 @@ const pdfTemplate = require("./Pages/Report")
 const app = express()
 const port = 5000
 
-const corsOptions = {
-    origin: 'http://localhost:3000', // Replace with the actual origin of your React app
-    optionsSuccessStatus: 200, // Some legacy browsers choke on 204
-};
-
-app.use(cors(corsOptions))
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(cors())
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*")
+  res.header("Access-Control-Allow-Headers", "X-Requested-With")
+  next()
+})
+
 app.get("/", (req, res) => {
-    res.send({"message": "Your Server is Up and Running..."}).statusCode(500)
+  res.send({ message: "Your Server is Up and Running..." }).statusCode(500)
 })
 
 app.post("/createReport", (req, res) => {
-    pdf.create(pdfTemplate(),{}).toFile("Report.pdf",(err)=>{
-        if(err) {
-            return Promise.reject(err)
-        }
-        return Promise.resolve()
-    })
-    res.send({"message": "PDF Generated"})
+  pdf.create(pdfTemplate(), {}).toFile("Report.pdf", (err) => {
+    if (err) {
+      return Promise.reject(err)
+    }
+    return Promise.resolve()
+  })
+  res.send({ message: "PDF Generated" })
 })
 
-app.get("/getReport", (req,res)=>{
-    res.sendFile(`${__dirname}/Report.pdf`)
+app.get("/getReport", (req, res) => {
+  res.sendFile(`${__dirname}/Report.pdf`)
 })
 
-app.listen(port,()=>{
-    console.log("Server is Active!")
+app.listen(port, () => {
+  console.log("Server is Active!")
 })
