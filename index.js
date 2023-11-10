@@ -7,17 +7,11 @@ const app = express()
 const port = 5000
 
 app.use(cors())
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
-
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*")
-  res.header("Access-Control-Allow-Headers", "X-Requested-With")
-  next()
-})
+App.use(express.urlencoded({ extended: true }))
+App.use(express.json())
 
 app.get("/", (req, res) => {
-  res.send({ message: "Your Server is Up and Running..." }).statusCode(500)
+  res.send({ message: "Your Server is Up and Running..." }).statusCode(200)
 })
 
 app.post("/createReport", (req, res) => {
