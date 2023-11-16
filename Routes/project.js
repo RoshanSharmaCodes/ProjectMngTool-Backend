@@ -1,5 +1,5 @@
 const express = require("express")
-const projectRouter = require("project")
+const projectRouter = express.Router()
 
 projectRouter.get("/projectDetails", (req,res)=>{
 
